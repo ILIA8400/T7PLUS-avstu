@@ -12,7 +12,7 @@ using System.Collections.Generic;
 List<Student> students = new List<Student>();
 
 
-StreamReader Name = new StreamReader(@"C:\Users\ILIA\source\repos\tam7+\tam7+\name.txt");
+StreamReader Name = new StreamReader(@"C:\Users\ILIA\source\name.txt");
 
 
 
@@ -41,34 +41,69 @@ while (!Name.EndOfStream)
 
 }
 
+
+var sort1 = students.OrderByDescending(s => s.Averagekol()).ToList();
+var sort2 = students.OrderByDescending(s => s.Averagest0()).ToList();
+var sort3 = students.OrderByDescending(s => s.Averagest1()).ToList();
+var sort4 = students.OrderByDescending(s => s.Averagest2()).ToList();
+
+
 Console.WriteLine("Hello, dear student");
 string yn;
 do
 {
-    Console.WriteLine();
-    Console.WriteLine("You have 7 modes to choose from. Please choose one:");
-    Console.WriteLine("( Just enter the number )");
-    Console.WriteLine();
-    Console.WriteLine("1-Total Average");
-    Console.WriteLine();
-    Console.WriteLine("2-Total Average No stars");
-    Console.WriteLine();
-    Console.WriteLine("3-Total Average single stars");
-    Console.WriteLine();
-    Console.WriteLine("4-Total Average two stars");
-    Console.WriteLine();
-    Console.WriteLine("5-Determining the prime numbers of all student course grades");
-    Console.WriteLine();
-    Console.WriteLine("6-Display based on name and four types of Total Average");
-    Console.WriteLine();
-    Console.WriteLine("7-Display based on grading (abcdefg)");
-    Console.WriteLine();
-    Console.WriteLine("8-Exit");
-    Console.WriteLine();
-    int x = Convert.ToInt32(Console.ReadLine());
-    Console.WriteLine();
+    try
+    { 
+        Console.WriteLine();
+        Console.WriteLine("You have 7 modes to choose from. Please choose one:");
+        Console.WriteLine("( Just enter the number )");
+        Console.WriteLine();
+        Console.WriteLine("1-Total Average");
+        Console.WriteLine();
+        Console.WriteLine("2-Total Average No stars");
+        Console.WriteLine();
+        Console.WriteLine("3-Total Average single stars");
+        Console.WriteLine();
+        Console.WriteLine("4-Total Average two stars");
+        Console.WriteLine();
+        Console.WriteLine("5-Determining the prime numbers of all student course grades");
+        Console.WriteLine();
+        Console.WriteLine("6-Display based on name and four types of Total Average");
+        Console.WriteLine();
+        Console.WriteLine("7-Display based on grading (abcdefg)");
+        Console.WriteLine();
+        Console.WriteLine("8-Exit");
+        Console.WriteLine();
+        int x = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine();
+
+        switchc(x);
 
 
+    }
+    catch (System.ArgumentOutOfRangeException) 
+    {
+         Console.WriteLine("You entered the wrong number, please enter the desired number again...");
+          int x = Convert.ToInt32(Console.ReadLine());
+         Console.WriteLine();
+          switchc(x);
+    }
+    finally
+    {
+ 
+        Console.WriteLine("Do you want to continue? y/n");
+          yn = Console.ReadLine();
+
+    }
+
+
+}
+while (yn == "y");
+
+
+
+void switchc(int x)
+{
     switch (x)
     {
         case 1:
@@ -76,7 +111,7 @@ do
                 Console.WriteLine("Total Average:");
                 Console.WriteLine("____________________________");
 
-                foreach (var student in students)
+                foreach (var student in sort1)
                 {
                     Console.WriteLine(student.fname + ":");
                     Console.WriteLine(student.Averagekol());
@@ -90,7 +125,7 @@ do
                 Console.WriteLine("Total Average No stars:");
                 Console.WriteLine("____________________________");
 
-                foreach (var student in students)
+                foreach (var student in sort2)
                 {
                     Console.WriteLine(student.fname + ":");
                     Console.WriteLine(student.Averagest0());
@@ -103,7 +138,7 @@ do
                 Console.WriteLine("Total Average single stars:");
                 Console.WriteLine("____________________________");
 
-                foreach (var student in students)
+                foreach (var student in sort3)
                 {
                     Console.WriteLine(student.fname + ":");
                     Console.WriteLine(student.Averagest1());
@@ -116,7 +151,7 @@ do
                 Console.WriteLine("Total Average two stars:");
                 Console.WriteLine("____________________________");
 
-                foreach (var student in students)
+                foreach (var student in sort4)
                 {
                     Console.WriteLine(student.fname + ":");
                     Console.WriteLine(student.Averagest2());
@@ -188,7 +223,7 @@ do
             {
                 Console.WriteLine("Display based on grading (abcdefg):");
                 Console.WriteLine("____________________________");
-                foreach (var student in students)
+                foreach (var student in sort1)
                 {
                     Console.WriteLine(student.fname + ":");
                     Console.WriteLine();
@@ -198,25 +233,21 @@ do
                 }
             }
             break;
-        default:
+        case 8:
             {
                 Console.WriteLine("<> Thank you for using this program <>");
+            }
+            break;
+        default:
+            {
+                throw new ArgumentOutOfRangeException();
             }
             break;
 
 
 
     }
-
-    Console.WriteLine("Do you want to continue? y/n");
-    yn = Console.ReadLine();
-
 }
-while (yn == "y");
-
-
-
-
 
 
 
@@ -335,3 +366,6 @@ class Student
 
 
 }
+
+
+    
